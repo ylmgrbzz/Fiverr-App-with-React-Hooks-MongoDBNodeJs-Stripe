@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import "./Navbar.scss";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import newRequest from "../../utils/newRequest";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [active, setActive] = useState(false);
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
 
+  const navigate = useNavigate();
   const isActive = () => {
     window.scrollY > 0 ? setActive(true) : setActive(false);
   };
@@ -19,10 +22,14 @@ const Navbar = () => {
     };
   }, []);
 
-  const currentUser = {
-    id: 1,
-    username: "ylm",
-    isSeller: true,
+  const currentUser = JSON.parse(localStorage.getItem("CurrentUser"));
+
+  const handleLogout = async () => {
+    try {
+      await newRequest.get("/auth/logout");
+      localStorage.setItem("CurrentUser", null);
+      navigate("/login");
+    } catch (error) {}
   };
 
   return (
@@ -43,10 +50,7 @@ const Navbar = () => {
           {!currentUser && <button> Join </button>}
           {currentUser && (
             <div className="user" onClick={() => setOpen(!open)}>
-              <img
-                src="https://www.okutanhobi.com/hr28-y-harfi-biblo-ahsap-obje-624-53-B.jpg"
-                alt=""
-              />
+              <img src={currentUser?.img} alt="" />
               <span>{currentUser?.username}</span>
               {open && (
                 <div className="options">
@@ -66,7 +70,7 @@ const Navbar = () => {
                   <Link className="link" to="/messages">
                     Messages
                   </Link>
-                  <Link className="link" to="/">
+                  <Link className="link" onClick={handleLogout}>
                     Logout
                   </Link>
                 </div>

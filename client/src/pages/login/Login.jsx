@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Login.scss";
-import { useNavigate } from "react-router-dom";
 import newRequest from "../../utils/newRequest";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -21,6 +21,7 @@ const Login = () => {
       navigate("/");
     } catch (error) {
       setError(error.response.data);
+      console.log(error.response.data);
     }
   };
 
