@@ -49,7 +49,12 @@ const Navbar = () => {
             Sign in
           </Link>
           {!currentUser?.isSeller && <span>Become a Seller</span>}
-          {!currentUser && <button> Join </button>}
+          {!currentUser && (
+            <Link to="/login" className="link">
+              {" "}
+              Join{" "}
+            </Link>
+          )}
           {currentUser && (
             <div className="user" onClick={() => setOpen(!open)}>
               <img src={currentUser?.img} alt="" />
