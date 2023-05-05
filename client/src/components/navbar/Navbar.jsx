@@ -45,7 +45,9 @@ const Navbar = () => {
           <span>Liverr Business</span>
           <span>Explore</span>
           <span>English</span>
-          <span>Sign in</span>
+          <Link to="/login " className="link">
+            Sign in
+          </Link>
           {!currentUser?.isSeller && <span>Become a Seller</span>}
           {!currentUser && <button> Join </button>}
           {currentUser && (

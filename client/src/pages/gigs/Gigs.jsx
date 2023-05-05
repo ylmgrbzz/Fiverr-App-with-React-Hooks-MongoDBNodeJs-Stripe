@@ -2,6 +2,10 @@ import React, { useRef, useState } from "react";
 import "./Gigs.scss";
 import GigCard from "../../components/gigCard/GigCard";
 import { gigs } from "../../data";
+import { useQuery } from "react-query";
+import newRequest from "../../utils/newRequest";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 function Gigs() {
   const [sort, setSort] = useState("sales");
@@ -9,14 +13,34 @@ function Gigs() {
   const minRef = useRef();
   const maxRef = useRef();
 
+  const { search } = useLocation();
+  console.log(search);
+
+  const { isLoading, error, data, refetch } = useQuery({
+    queryKey: ["gigs"],
+    queryFn: () =>
+      newRequest
+        .get(
+          `/gigs${search}&min=${minRef.current.value}&max=${maxRef.current.value}&sort=${sort}`
+        )
+        .then((res) => {
+          return res.data;
+        }),
+  });
+  console.log(data);
+  console.log(res.data);
+
   const reSort = (type) => {
     setSort(type);
     setOpen(false);
   };
 
+  useEffect(() => {
+    refetch();
+  }, [sort]);
+
   const apply = () => {
-    console.log(minRef.current.value);
-    console.log(maxRef.current.value);
+    refetch();
   };
 
   return (
@@ -55,9 +79,11 @@ function Gigs() {
           </div>
         </div>
         <div className="cards">
-          {gigs.map((gig) => (
-            <GigCard key={gig.id} item={gig} />
-          ))}
+          {isLoading
+            ? "loading"
+            : error
+            ? error.message || "An error has occurred"
+            : gigs.map((gig) => <GigCard key={gig.id} item={gig} />)}
         </div>
       </div>
     </div>
