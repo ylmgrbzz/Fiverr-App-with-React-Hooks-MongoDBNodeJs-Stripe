@@ -3,6 +3,7 @@ import "./Register.scss";
 import { useNavigate } from "react-router-dom";
 import newRequest from "../../utils/newRequest";
 import { upload } from "../../utils/upload";
+import { useState } from "react";
 
 const Register = () => {
   const [file, setFile] = useState(null);
@@ -15,6 +16,8 @@ const Register = () => {
     isSeller: false,
     desc: "",
   });
+
+  console.log(user);
 
   const navigate = useNavigate();
 
