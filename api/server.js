@@ -21,6 +21,8 @@ const connect = async () => {
     .catch((err) => console.log("MongoDB connection error: " + err));
 };
 
+app.use(express.json());
+
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/gigs", gigRoute);
