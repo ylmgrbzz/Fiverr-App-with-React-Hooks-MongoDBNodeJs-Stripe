@@ -1,10 +1,9 @@
 import express from "express";
-import deleteUser from "../controllers/user.controller.js";
+import { deleteUser, getUser } from "../controllers/user.controller.js";
 
 const router = express.Router();
 
-router.get("/test", (req, res) => {
-  res.send("Hey its user route");
-});
+router.delete("/:id", deleteUser);
+router.get("/:id", getUser);
 
 export default router;
