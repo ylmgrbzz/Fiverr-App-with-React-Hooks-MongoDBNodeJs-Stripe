@@ -1,6 +1,6 @@
 import Stripe from "stripe";
-// import Order from "../models/order.model";
-// import Gig from "../models/gig.model";
+import Gig from "../models/gig.model.js";
+import Order from "../models/order.model.js";
 
 export const intent = async (req, res, next) => {
   const stripe = new Stripe(process.env.STRIPE);
