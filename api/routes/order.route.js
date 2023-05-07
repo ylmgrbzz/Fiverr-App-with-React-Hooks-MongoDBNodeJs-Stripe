@@ -1,6 +1,6 @@
 import express from "express";
 import { getOrders, intent, confirm } from "../controllers/order.controller.js";
-import { verifyToken } from "../middlewares/auth.js";
+import { verifyToken } from "../middleware/jwt.js";
 
 const router = express.Router();
 
