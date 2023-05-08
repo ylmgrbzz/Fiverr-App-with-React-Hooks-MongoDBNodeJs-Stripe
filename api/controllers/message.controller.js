@@ -1,18 +1,18 @@
 import createError from "../utils/createError.js";
 import Message from "../models/message.model.js";
-import Conservation from "../models/conservation.model.js";
+import Conversation from "../models/Conversation.model.js";
 
 export const createMessage = async (req, res, next) => {
   const newMessage = new Message({
-    conservationId: req.body.conservationId,
+    ConversationId: req.body.ConversationId,
     userId: req.userId,
     desc: req.body.desc,
   });
 
   try {
     const savedMessage = await newMessage.save();
-    await Conservation.findOneAndUpdate(
-      { id: req.body.conservationId },
+    await Conversation.findOneAndUpdate(
+      { id: req.body.ConversationId },
       {
         $set: {
           readBySeller: req.isSeller,

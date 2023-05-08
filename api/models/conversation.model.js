@@ -34,4 +34,4 @@ const ConversationSchema = new Schema(
   }
 );
 
-export default mongoose.model("Conversation", ConversationSchema);
+export default mongoose.model("Conversation ", ConversationSchema);
