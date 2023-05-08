@@ -4,6 +4,7 @@ import "./Orders.scss";
 
 const Orders = () => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
   const navigate = useNavigate();
   const { isLoading, error, data } = useQuery({
     queryKey: ["orders"],
